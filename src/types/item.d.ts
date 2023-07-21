@@ -1,4 +1,5 @@
-export interface Item {
+export interface IItem {
+  id: number
   name: string
   description: string
   quantity: number
@@ -6,4 +7,9 @@ export interface Item {
   category: string
   createdAt: Date
   updatedAt: Date
+}
+
+export interface IStockContext {
+  items?: IItem[]
+  addItem?: (item: IItem) => void
 }
