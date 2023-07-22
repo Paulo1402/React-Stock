@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import { StockContext } from '../contexts/StockContext'
-import { useContext } from 'react'
+import useStock from '../hooks/useStock'
 
 export default function ItemsTable() {
-  const { items } = useContext(StockContext)
+  const { items } = useStock()
   
   return (
     <table>
