@@ -4,7 +4,7 @@ Aplicação SPA para gerenciamento de estoque com dashboard e CRUD usando Local 
 
 ![preview](./.github/preview.png)
 
-[Clique aqui para acessar]()
+[Clique aqui para acessar](https://react-stock-theta.vercel.app/)
 
 ## 🛠 Tecnologias
 
