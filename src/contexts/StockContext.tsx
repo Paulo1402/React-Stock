@@ -1,9 +1,12 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { IStockItem, IStockContext } from '../types/item'
 
 export const StockContext = createContext<IStockContext>({
   items: [],
   addItem: function (): void {
+    throw new Error('Function not implemented.')
+  },
+  deleteItem: function (): void {
     throw new Error('Function not implemented.')
   }
 })
@@ -30,15 +33,25 @@ export function StockContextProvider({
   function addItem(item: IStockItem) {
     setItems(currentState => {
       const updatedItems = [item, ...currentState]
-      localStorage.setItem('react-stock', JSON.stringify(updatedItems))
-
       return updatedItems
     })
   }
 
+  function deleteItem(itemId: number) {
+    setItems(currentState => {
+      const updatedItems = currentState.filter(item => item.id !== itemId)
+      return updatedItems
+    })
+  }
+
+  useEffect(() => {
+    localStorage.setItem('react-stock', JSON.stringify(items))
+  }, [items])
+
   const stock = {
     items,
-    addItem
+    addItem,
+    deleteItem
   }
 
   return <StockContext.Provider value={stock}>{children}</StockContext.Provider>

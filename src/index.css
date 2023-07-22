@@ -80,10 +80,15 @@ nav a:hover {
   border-bottom: .125rem solid #fefefe;
 }
 
+.table-container {
+  overflow: auto;
+}
+
 table {
   border-collapse: collapse;
   margin-top: 2rem;
   width: 100%;
+  min-width: 880px;
 }
 
 thead {

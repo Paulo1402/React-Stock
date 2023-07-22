@@ -14,5 +14,6 @@ export interface IStockItem extends IStockItemToCreate {
 
 export interface IStockContext {
   items: IStockItem[]
-  addItem: (item: IStockItem) => void
+  addItem: (item: IStockItem) => void,
+  deleteItem: (itemId: number) => void
 }
