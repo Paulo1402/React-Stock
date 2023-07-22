@@ -1,4 +1,4 @@
-import { IStockItemToCreate } from '../types/item'
+import { IStockItemForm } from '../types/common'
 
 export const CATEGORIES = ['Jogos', 'Livros', 'Brinquedos', 'Acessórios']
 
@@ -18,7 +18,7 @@ export default class StockItem {
     quantity,
     price,
     category
-  }: IStockItemToCreate) {
+  }: IStockItemForm) {
     this.id = Math.floor(Math.random() * 10000)
     this.name = name
     this.description = description

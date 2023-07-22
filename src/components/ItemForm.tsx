@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useState, useRef } from 'react'
-import { IStockItemToCreate } from '../types/item'
+import { IStockItem, IStockItemForm } from '../types/common'
 import StockItem, { CATEGORIES } from '../entities/StockItem'
 import useStock from '../hooks/useStock'
 
 interface ItemFormProps {
-  itemToUpdate?: IStockItemToCreate
+  itemToUpdate?: IStockItem
 }
 
 type HTMLFormElements =
@@ -13,7 +13,7 @@ type HTMLFormElements =
   | HTMLSelectElement
 
 export default function ItemForm({ itemToUpdate }: ItemFormProps) {
-  const defaultItem: IStockItemToCreate = {
+  const defaultItem: IStockItemForm = {
     name: '',
     description: '',
     quantity: 0,
@@ -21,10 +21,10 @@ export default function ItemForm({ itemToUpdate }: ItemFormProps) {
     category: ''
   }
 
-  const [item, setItem] = useState<IStockItemToCreate>(
+  const [item, setItem] = useState<IStockItemForm>(
     itemToUpdate ? itemToUpdate : defaultItem
   )
-  const { addItem } = useStock()
+  const { addItem, updatedItem } = useStock()
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   function handleChange(ev: ChangeEvent<HTMLFormElements>) {
@@ -38,15 +38,20 @@ export default function ItemForm({ itemToUpdate }: ItemFormProps) {
 
   function handleSubmit(ev: FormEvent) {
     ev.preventDefault()
-    
+
     try {
-      const stockItem = new StockItem(item)
-      
-      addItem(stockItem)
-      setItem(defaultItem)
-      inputRef.current?.focus()
-      
-      alert('Item cadastrado com sucesso!')
+      if (itemToUpdate) {
+        updatedItem(itemToUpdate.id, item)
+        alert('Item atualizado com sucesso!')
+      } else {
+        const stockItem = new StockItem(item)
+
+        addItem(stockItem)
+        setItem(defaultItem)
+        inputRef.current?.focus()
+
+        alert('Item cadastrado com sucesso!')
+      }
     } catch (e) {
       console.log(e)
     }

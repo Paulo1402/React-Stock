@@ -1,12 +1,18 @@
 import { createContext, useState, useEffect } from 'react'
-import { IStockItem, IStockContext } from '../types/item'
+import { IStockItem, IStockContext, IStockItemForm } from '../types/common'
 
 export const StockContext = createContext<IStockContext>({
   items: [],
   addItem: function (): void {
     throw new Error('Function not implemented.')
   },
+  getItem: function (): IStockItem {
+    throw new Error('Function not implemented.')
+  },
   deleteItem: function (): void {
+    throw new Error('Function not implemented.')
+  },
+  updatedItem: function (): void {
     throw new Error('Function not implemented.')
   }
 })
@@ -37,6 +43,29 @@ export function StockContextProvider({
     })
   }
 
+  function getItem(itemId: number): IStockItem {
+    const item = items.find(item => item.id === +itemId)
+
+    if (!item) {
+      throw new Error(`Item ${itemId} not found`)
+    }
+
+    return item
+  }
+
+  function updatedItem(itemId: number, newAttributes: IStockItemForm) {
+    setItems(currentState => {
+      const itemIndex = currentState.findIndex(item => item.id === +itemId)
+      const updatedItems = [...currentState]
+
+      Object.assign(updatedItems[itemIndex], newAttributes, {
+        updatedAt: new Date()
+      })
+
+      return updatedItems
+    })
+  }
+
   function deleteItem(itemId: number) {
     setItems(currentState => {
       const updatedItems = currentState.filter(item => item.id !== itemId)
@@ -44,13 +73,17 @@ export function StockContextProvider({
     })
   }
 
-  useEffect(() => {
+  function saveIntoLocalStorage() {
     localStorage.setItem('react-stock', JSON.stringify(items))
-  }, [items])
+  }
+
+  useEffect(saveIntoLocalStorage, [items])
 
   const stock = {
     items,
     addItem,
+    getItem,
+    updatedItem,
     deleteItem
   }
 
