@@ -84,11 +84,14 @@ nav a:hover {
   overflow: auto;
 }
 
+.table-container table {
+  min-width: 880px;
+}
+
 table {
   border-collapse: collapse;
   margin-top: 2rem;
   width: 100%;
-  min-width: 880px;
 }
 
 thead {

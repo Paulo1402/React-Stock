@@ -29,6 +29,8 @@ export function StockContextProvider({
 
     const items = JSON.parse(storedItems) as IStockItem[]
     items.forEach(item => {
+      item.quantity = +item.quantity
+      item.price = +item.price
       item.createdAt = new Date(item.createdAt)
       item.updatedAt = new Date(item.updatedAt)
     })
