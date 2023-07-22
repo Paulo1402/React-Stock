@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import useStock from '../hooks/useStock'
+import DashboardCard from '../components/DashboardCars'
 
 export default function Home() {
   const { items } = useStock()
@@ -24,22 +25,10 @@ export default function Home() {
       <h1>Dashboard</h1>
 
       <div className="row">
-        <div className="dashboard-card">
-          Diversidade de itens
-          <span>{diversity}</span>
-        </div>
-        <div className="dashboard-card">
-          Inventário total
-          <span>{inventoryTotal}</span>
-        </div>
-        <div className="dashboard-card">
-          Itens recentes
-          <span>{recentTotal}</span>
-        </div>
-        <div className="dashboard-card">
-          Itens acabando
-          <span>{lowQuantityTotal}</span>
-        </div>
+        <DashboardCard title="Diversidade de itens" value={diversity} />
+        <DashboardCard title="Inventário total" value={inventoryTotal} />
+        <DashboardCard title="Itens recentes" value={recentTotal} />
+        <DashboardCard title="Itens acabando" value={lowQuantityTotal} />
       </div>
 
       <div className="row">
